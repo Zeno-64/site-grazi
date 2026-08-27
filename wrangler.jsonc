@@ -4,7 +4,10 @@
   // com "." o wrangler subiria o proprio wrangler.jsonc e o .git junto.
   // Nao existe "main": sem codigo de Worker, os assets sao gratuitos
   // e ilimitados, e o limite de 100k req/dia nao se aplica.
-  "name": "grazielecruz",
+  // Precisa bater com o nome do worker que ja existe no painel.
+  // Com "grazielecruz" o deploy criaria um SEGUNDO worker em vez de
+  // atualizar o que esta no ar.
+  "name": "site-grazi",
   "compatibility_date": "2024-11-01",
   "assets": {
     "directory": "./public"
