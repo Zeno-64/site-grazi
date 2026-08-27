@@ -1,0 +1,4 @@
+# Normaliza fim de linha. Importante para o _headers, que e lido
+# como configuracao pelo Cloudflare e nao deve chegar com CRLF.
+* text=auto eol=lf
+*.png binary

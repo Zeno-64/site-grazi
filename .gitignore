@@ -1,0 +1,9 @@
+# Entrega original recebida da autora, mantida no disco como fonte
+# da verdade mas fora do repositorio.
+Codex/
+Codex-*.zip
+
+node_modules/
+.wrangler/
+.DS_Store
+Thumbs.db
