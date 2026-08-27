@@ -91,15 +91,31 @@ confirmar em Safari e Firefox reais antes de divulgar.
 2. Dominio. `grazielecruz.pages.dev` esta chumbado em 6 lugares:
    canonical, og:url, og:image, og:image:secure_url, twitter:image e o
    `url` do JSON-LD. Definir o dominio final antes de divulgar.
-3. `_headers` e um recurso do Cloudflare Pages. Confirmar na doc atual
-   se Workers static assets honra o arquivo. Se nao honrar, os 4
-   headers de seguranca nao estao ativos. Tentei deduzir pela contagem
-   do `wrangler deploy --dry-run` e nao deu: o wrangler reporta sempre
-   um arquivo a mais que o disco (4 no disco -> "5 files", 3 -> "4"),
-   entao o offset e constante e nao diz se o `_headers` foi consumido
-   como config ou tratado como asset comum. So da para resolver na doc
-   oficial ou checando o header na resposta apos o primeiro deploy.
+3. RESOLVIDO. O `_headers` E honrado por Workers static assets. Prova:
+   `curl -sI https://site-grazi.kevinbaradelli.workers.dev` devolve os
+   quatro headers do arquivo — `x-content-type-options: nosniff`,
+   `x-frame-options: SAMEORIGIN`, `referrer-policy:
+   strict-origin-when-cross-origin` e `permissions-policy: camera=(),
+   microphone=(), geolocation=()`. Nao e preciso migrar para Pages.
+
 4. Contraste do `.footer-copy` (acima).
+5. Nome do worker divergente. O worker no ar chama-se `site-grazi`
+   (`site-grazi.kevinbaradelli.workers.dev` responde 200), mas o
+   `wrangler.jsonc` deste repo declara `grazielecruz`
+   (`grazielecruz.kevinbaradelli.workers.dev` responde 404). Um
+   `wrangler deploy` a partir daqui criaria um SEGUNDO worker em vez de
+   atualizar o existente. Reconciliar antes do proximo deploy.
+6. Exposicao do desenvolvedor. O repositorio e publico (`private:
+   false`) e todo commit carrega nome e email pessoal do desenvolvedor
+   no metadado de autoria, consultavel pela API do GitHub sem
+   autenticacao. Decidir entre tornar o repo privado, passar a usar o
+   email `noreply` do GitHub, ou aceitar conscientemente.
+7. Subdominio workers.dev embutido na conta. Enquanto o
+   `workers.dev` nao for desligado explicitamente
+   (`"workers_dev": false` no wrangler.jsonc — chave validada como
+   aceita pelo wrangler 4.126), a URL com o nome do desenvolvedor
+   continua no ar e indexavel mesmo depois de o dominio proprio
+   entrar no ar. Adicionar dominio proprio NAO desliga a workers.dev.
 
 ## Pendencias de conteudo — dependem da Graziele
 
