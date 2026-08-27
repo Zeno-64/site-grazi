@@ -140,3 +140,62 @@ Nada disso deve ser escrito por nos.
 Sem checkout no site — o pagamento acontece fora, pelo WhatsApp. Logo a
 clausula do ToS do Cloudflare sobre processar cartao no plano free nao e
 atingida.
+
+## Secao Mentoria e Comunidade (adicionada 26/08/2026)
+
+Duas abas acessiveis numa secao nova (`#mentoria`), inserida entre os
+jars e "Como funciona". Fundo ink puro para nao repetir o wine da secao
+anterior e para dar o respiro pedido no briefing.
+
+Decisoes:
+
+- Construida com as convencoes que ja existiam (`.section`, `.eyebrow`,
+  `.section-title`, `.gold-rule`, `.button`, `.reveal`), sem sistema
+  visual paralelo.
+- Abas com ARIA real: `role=tablist/tab/tabpanel`, `aria-selected`,
+  `aria-controls`, roving tabindex e teclado (setas, Home, End, com
+  wrap-around). Verificado no navegador.
+- Sem JavaScript a secao continua utilizavel: um `<noscript>` desfaz o
+  `hidden` dos paineis e esconde a lista de abas, entao os dois
+  conteudos aparecem empilhados. Evita tambem o pulo de layout que
+  haveria se o painel fosse escondido so depois do load.
+- Os botoes dos grupos NAO levam `data-service`. O script existente
+  reescreve o href de todo `[data-service]` para `wa.me`; com o
+  atributo, os links de convite seriam destruidos. Conferido: os dois
+  links de grupo chegam intactos ao DOM e os 28 CTAs originais seguem
+  com a mensagem pre-preenchida.
+- Estrela de Davi usada como marca d'agua unica a 5,5% de opacidade,
+  conforme o pedido de simbolo "extremamente sutil".
+- Contraste da secao: zero reprovacoes AA nas duas abas.
+
+### Regressao causada e corrigida
+
+Adicionar o oitavo item no menu ("Mentoria") espremeu a barra
+horizontal em 900px: o menu foi de 611px para 669px, sobraram 16px ate
+a marca e os rotulos "Baralho Cigano" e "Como funciona" quebraram em
+duas linhas. Medido com e sem o item para confirmar a causa.
+
+Corrigido movendo a navegacao horizontal de 900px para 1024px (entre
+900 e 1024 usa o hamburguer) e travando `white-space: nowrap` nos
+rotulos. Folga apos a correcao: 117px em 1024px, 292px em 1280px,
+nenhum rotulo quebrado em nenhum dos tres breakpoints.
+
+## Pendencias de conteudo da secao nova
+
+1. A data "Início: 10 de setembro" esta escrita no HTML. Site estatico,
+   sem painel: quando a turma virar, alguem precisa editar o arquivo.
+   Combinar com a Graziele como ela avisa.
+2. Os links de convite de grupo do WhatsApp ficam publicos numa pagina
+   indexavel. Consequencias que ela precisa saber: qualquer pessoa com
+   o link entra, entao "exclusivo para mulheres" passa a depender de
+   moderacao e nao do link; membros de um grupo enxergam o telefone uns
+   dos outros; e link de convite exposto em pagina publica costuma ser
+   coletado por bot de spam. Se isso incomodar, a alternativa e o
+   botao apontar para o WhatsApp dela e o convite ser enviado no
+   particular.
+3. A Jornada e o unico servico do site sem valor declarado — fala em
+   "valor de troca" sem numero. Confirmar se e proposital.
+4. O briefing pediu que o site nao pareca religioso, mas o conteudo
+   trata de Orixas, Axe e ancestralidade. Segui a direcao de design
+   (tipografia e simbolo discreto, nenhuma imagem religiosa); a
+   decisao editorial e dela.
